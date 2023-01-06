@@ -6,10 +6,13 @@ export class LoadingScene extends Scene {
     super('loading-scene');
   }
   create(): void {
-    console.log('Loading scene was created');
-    this.king = this.add.sprite(100, 100, 'king');
+    // console.log('Loading scene was created');
+    // this.king = this.add.sprite(100, 100, 'king');
+    console.log("assets are loaded, launching 'level-1-scene'");
+    this.scene.start('level-1-scene');
   }
   preload(): void {
+    console.log('loading assets from loading scene');
     this.load.baseURL = 'assets/';
     // key: 'king'
     // path from baseURL to file: 'sprites/king.png'
