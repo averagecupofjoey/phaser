@@ -17,5 +17,12 @@ export class LoadingScene extends Scene {
     // key: 'king'
     // path from baseURL to file: 'sprites/king.png'
     this.load.image('king', 'sprites/king.png');
+
+    // load the atlas/spritesheet
+    this.load.atlas(
+      'a-king',
+      'spritesheets/a-king.png',
+      'spritesheets/a-king_atlas.json'
+    );
   }
 }
