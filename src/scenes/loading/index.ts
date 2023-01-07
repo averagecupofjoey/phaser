@@ -24,5 +24,14 @@ export class LoadingScene extends Scene {
       'spritesheets/a-king.png',
       'spritesheets/a-king_atlas.json'
     );
+
+    //load the tileset image
+    this.load.image({
+      key: 'tiles',
+      url: 'tilemaps/tiles/dungeon-16-16.png',
+    });
+
+    //load the json map
+    this.load.tilemapTiledJSON('dungeon', 'tilemaps/json/dungeon.json');
   }
 }
