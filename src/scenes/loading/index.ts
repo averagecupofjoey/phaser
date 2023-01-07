@@ -33,5 +33,11 @@ export class LoadingScene extends Scene {
 
     //load the json map
     this.load.tilemapTiledJSON('dungeon', 'tilemaps/json/dungeon.json');
+
+    //loads the sprites for gameobjects
+    this.load.spritesheet('tiles_spr', 'tilemaps/tiles/dungeon-16-16.png', {
+      frameWidth: 16,
+      frameHeight: 16,
+    });
   }
 }

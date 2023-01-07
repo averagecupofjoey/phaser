@@ -1,5 +1,6 @@
 import { Scene, Tilemaps, GameObjects } from 'phaser';
 import { Player } from '../../classes/player';
+import { gameObjectsToObjectPoints } from '../../helpers/gameobject-to-object-point';
 export class Level1 extends Scene {
   // private king!: GameObjects.Sprite;
   private map!: Tilemaps.Tilemap;
@@ -7,6 +8,7 @@ export class Level1 extends Scene {
   private wallsLayer!: Tilemaps.TilemapLayer;
   private groundLayer!: Tilemaps.TilemapLayer;
   private player!: Player;
+  private chests!: Phaser.GameObjects.Sprite[];
   constructor() {
     super('level-1-scene');
   }
@@ -15,10 +17,13 @@ export class Level1 extends Scene {
     this.initMap();
 
     // this.king = this.add.sprite(100, 100, 'king');
-    this.player = new Player(this, 100, 100);
+    this.player = new Player(this, 500, 500);
 
     // adds the wall collision physics
     this.physics.add.collider(this.player, this.wallsLayer);
+
+    // creates the chests on the level
+    this.initChests();
   }
   update(): void {
     this.player.update();
@@ -48,6 +53,26 @@ export class Level1 extends Scene {
     this.wallsLayer.renderDebug(debugGraphics, {
       tileColor: null,
       collidingTileColor: new Phaser.Display.Color(243, 234, 48, 255),
+    });
+  }
+
+  private initChests(): void {
+    //filters the layer to find the objects that are named chestpoint
+    const chestPoints = gameObjectsToObjectPoints(
+      this.map.filterObjects('Chests', (obj) => obj.name === 'ChestPoint')
+    );
+    //for each of the chestpoints, adds the sprite at the coords
+    this.chests = chestPoints.map((chestPoint) =>
+      this.physics.add
+        .sprite(chestPoint.x, chestPoint.y, 'tiles_spr', 595)
+        .setScale(1.5)
+    );
+    //sets a physics interaction for the player and chest
+    this.chests.forEach((chest) => {
+      this.physics.add.overlap(this.player, chest, (obj1, obj2) => {
+        obj2.destroy();
+        this.cameras.main.flash();
+      });
     });
   }
 }
