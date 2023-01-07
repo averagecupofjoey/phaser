@@ -24,6 +24,9 @@ export class Level1 extends Scene {
 
     // creates the chests on the level
     this.initChests();
+
+    //creates the camera movement on level
+    this.initCamera();
   }
   update(): void {
     this.player.update();
@@ -74,5 +77,11 @@ export class Level1 extends Scene {
         this.cameras.main.flash();
       });
     });
+  }
+  //sets the camera size and follows the player
+  private initCamera(): void {
+    this.cameras.main.setSize(this.game.scale.width, this.game.scale.height);
+    this.cameras.main.startFollow(this.player, true, 0.09, 0.09);
+    this.cameras.main.setZoom(2);
   }
 }
