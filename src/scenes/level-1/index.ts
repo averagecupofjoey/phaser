@@ -10,6 +10,7 @@ export class Level1 extends Scene {
   private player!: Player;
   private chests!: Phaser.GameObjects.Sprite[];
   constructor() {
+    //this is what we call it in order to launch it
     super('level-1-scene');
   }
   create(): void {

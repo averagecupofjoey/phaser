@@ -10,6 +10,7 @@ export class LoadingScene extends Scene {
     // this.king = this.add.sprite(100, 100, 'king');
     console.log("assets are loaded, launching 'level-1-scene'");
     this.scene.start('level-1-scene');
+    this.scene.start('ui-scene');
   }
   preload(): void {
     console.log('loading assets from loading scene');
