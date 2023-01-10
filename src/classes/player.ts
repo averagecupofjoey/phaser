@@ -1,12 +1,14 @@
 import { Actor } from './actor';
 import { Text } from './text';
-// import { Scene } from 'phaser';
+import { Scene, Input } from 'phaser';
+import { EVENTS_NAME } from '../consts';
 export class Player extends Actor {
   private keyW: Phaser.Input.Keyboard.Key;
   private keyA: Phaser.Input.Keyboard.Key;
   private keyS: Phaser.Input.Keyboard.Key;
   private keyD: Phaser.Input.Keyboard.Key;
   private hpValue: Text;
+  private keySpace: Input.Keyboard.Key;
   constructor(scene: Phaser.Scene, x: number, y: number) {
     super(scene, x, y, 'king');
     // KEYS
@@ -14,6 +16,7 @@ export class Player extends Actor {
     this.keyA = this.scene.input.keyboard.addKey('A');
     this.keyS = this.scene.input.keyboard.addKey('S');
     this.keyD = this.scene.input.keyboard.addKey('D');
+    this.keySpace = this.scene.input.keyboard.addKey(32);
     // PHYSICS
     this.getBody().setSize(30, 30);
     this.getBody().setOffset(8, 0);
@@ -56,6 +59,11 @@ export class Player extends Actor {
     //resets the hpValue with each frame update
     this.hpValue.setPosition(this.x, this.y - this.height * 0.4);
     this.hpValue.setOrigin(0.8, 0.5);
+
+    this.keySpace.on('down', (event: KeyboardEvent) => {
+      this.anims.play('attack', true);
+      this.scene.game.events.emit(EVENTS_NAME.attack);
+    });
   }
 
   public getDamage(value?: number): void {

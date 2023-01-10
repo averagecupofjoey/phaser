@@ -1,10 +1,14 @@
 import { Math, Scene } from 'phaser';
 import { Actor } from './actor';
 import { Player } from './player';
+import { EVENTS_NAME } from '../consts';
 export class Enemy extends Actor {
   private target: Player;
   // distance target for enemy to start pursuing
   private AGRESSOR_RADIUS = 100;
+
+  private attackHandler: () => void;
+
   constructor(
     scene: Phaser.Scene,
     x: number,
@@ -21,6 +25,31 @@ export class Enemy extends Actor {
     // PHYSICS MODEL
     this.getBody().setSize(16, 16);
     this.getBody().setOffset(0, 0);
+
+    this.attackHandler = () => {
+      if (
+        Math.Distance.BetweenPoints(
+          { x: this.x, y: this.y },
+          { x: this.target.x, y: this.target.y }
+        ) < this.target.width
+      ) {
+        this.getDamage();
+        this.disableBody(true, false);
+
+        this.scene.time.delayedCall(300, () => {
+          this.destroy();
+        });
+      }
+    };
+
+    //EVENT for getting attacked
+    this.scene.game.events.on(EVENTS_NAME.attack, this.attackHandler, this);
+    this.on('destroy', () => {
+      this.scene.game.events.removeListener(
+        EVENTS_NAME.attack,
+        this.attackHandler
+      );
+    });
   }
   preUpdate(): void {
     if (
