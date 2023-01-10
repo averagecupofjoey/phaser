@@ -40,8 +40,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":955.989507432235,
-                 "y":469.250947245701
+                 "x":929.758088020985,
+                 "y":661.61468959487
                 }, 
                 {
                  "height":0,
@@ -64,8 +64,8 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":594.578839988342,
-                 "y":378.898280384727
+                 "x":279.801807053338,
+                 "y":1116.29262605654
                 }, 
                 {
                  "height":0,
@@ -84,9 +84,68 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":4,
+         "name":"Enemies",
+         "objects":[
+                {
+                 "height":0,
+                 "id":5,
+                 "name":"EnemyPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":973.477120373069,
+                 "y":664.529291751676
+                }, 
+                {
+                 "height":0,
+                 "id":6,
+                 "name":"EnemyPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":343.92305450306,
+                 "y":373.069076071116
+                }, 
+                {
+                 "height":0,
+                 "id":7,
+                 "name":"EnemyPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":329.350043719032,
+                 "y":1148.3532497814
+                }, 
+                {
+                 "height":0,
+                 "id":8,
+                 "name":"EnemyPoint",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1186.24307781988,
+                 "y":1154.18245409502
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":5,
+ "nextlayerid":5,
+ "nextobjectid":9,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.7.2",

@@ -1,5 +1,6 @@
 import { Scene, Tilemaps, GameObjects } from 'phaser';
 import { Player } from '../../classes/player';
+import { Enemy } from '../../classes/enemy';
 import { gameObjectsToObjectPoints } from '../../helpers/gameobject-to-object-point';
 import { EVENTS_NAME } from '../../consts';
 export class Level1 extends Scene {
@@ -10,6 +11,7 @@ export class Level1 extends Scene {
   private groundLayer!: Tilemaps.TilemapLayer;
   private player!: Player;
   private chests!: Phaser.GameObjects.Sprite[];
+  private enemies!: Phaser.GameObjects.Sprite[];
   constructor() {
     //this is what we call it in order to launch it
     super('level-1-scene');
@@ -29,6 +31,9 @@ export class Level1 extends Scene {
 
     //creates the camera movement on level
     this.initCamera();
+
+    //creates the enemies on level
+    this.initEnemies();
   }
   update(): void {
     this.player.update();
@@ -86,5 +91,22 @@ export class Level1 extends Scene {
     this.cameras.main.setSize(this.game.scale.width, this.game.scale.height);
     this.cameras.main.startFollow(this.player, true, 0.09, 0.09);
     this.cameras.main.setZoom(2);
+  }
+
+  //sets
+  private initEnemies(): void {
+    const enemiesPoints = gameObjectsToObjectPoints(
+      this.map.filterObjects('Enemies', (obj) => obj.name === 'EnemyPoint')
+    );
+    this.enemies = enemiesPoints.map((enemyPoint) =>
+      new Enemy(this, enemyPoint.x, enemyPoint.y, 'tiles_spr', this.player, 503)
+        .setName(enemyPoint.id.toString())
+        .setScale(1.5)
+    );
+    this.physics.add.collider(this.enemies, this.wallsLayer);
+    this.physics.add.collider(this.enemies, this.enemies);
+    this.physics.add.collider(this.player, this.enemies, (obj1, obj2) => {
+      (obj1 as Player).getDamage(1);
+    });
   }
 }
