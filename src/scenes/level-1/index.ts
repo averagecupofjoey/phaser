@@ -55,7 +55,7 @@ export class Level1 extends Scene {
     );
     this.wallsLayer.setCollisionByProperty({ collides: true });
     //shows the walls that have collisons
-    this.showDebugWalls();
+    // this.showDebugWalls();
   }
   //this will allow us to show walls with collisions on them
   private showDebugWalls(): void {
