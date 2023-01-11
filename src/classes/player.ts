@@ -24,6 +24,10 @@ export class Player extends Actor {
     // Animations
     this.initAnimations();
 
+    this.on('destroy', () => {
+      this.keySpace.removeAllListeners();
+    });
+
     //HP value
     this.hpValue = new Text(
       this.scene,

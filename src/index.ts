@@ -1,8 +1,12 @@
 import { Game, Types } from 'phaser';
 import { Level1, LoadingScene, UIScene } from './scenes';
 
-const gameConfig: Types.Core.GameConfig = {
-  title: 'Phaser game tutorial',
+type GameConfigExtended = Types.Core.GameConfig & {
+  winScore: number;
+};
+
+export const gameConfig: GameConfigExtended = {
+  title: 'Escape The Dungeon',
   type: Phaser.WEBGL,
   parent: 'game',
   backgroundColor: '#351f1b',
@@ -32,6 +36,7 @@ const gameConfig: Types.Core.GameConfig = {
     disableWebAudio: false,
   },
   scene: [LoadingScene, Level1, UIScene],
+  winScore: 40,
 };
 
 window.sizeChanged = () => {

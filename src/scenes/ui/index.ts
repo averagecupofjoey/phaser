@@ -2,7 +2,7 @@ import { Scene } from 'phaser';
 import { Score, ScoreOperations } from '../../classes/score';
 import { EVENTS_NAME, GameStatus } from '../../consts';
 import { Text } from '../../classes/text';
-
+import { gameConfig } from '../../index';
 export class UIScene extends Scene {
   private gameEndPhrase!: Text;
   private gameEndHandler: (status: GameStatus) => void;
@@ -16,6 +16,9 @@ export class UIScene extends Scene {
     super('ui-scene');
     this.chestLootHandler = () => {
       this.score.changeValue(ScoreOperations.INCREASE, 10);
+      if (this.score.getValue() === gameConfig.winScore) {
+        this.game.events.emit(EVENTS_NAME.gameEnd, 'win');
+      }
     };
 
     this.gameEndHandler = (status) => {
@@ -27,7 +30,7 @@ export class UIScene extends Scene {
         this.game.scale.width / 2,
         this.game.scale.height * 0.4,
         status === GameStatus.LOSE
-          ? `SASHAY AWAYaw!\nCLICK TO RESTART`
+          ? `SASHAY AWAY!\nCLICK TO RESTART`
           : `YOU'RE A WINNER BABY'!\nCLICK TO RESTART`
       )
         .setAlign('center')
